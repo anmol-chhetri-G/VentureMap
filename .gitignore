@@ -11,3 +11,5 @@ requirement/
 node_modules/
 dist/
 .eslintcache
+.env
+__pycache__/
