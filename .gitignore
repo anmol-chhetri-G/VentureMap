@@ -1,15 +1,15 @@
-.\.venv\Scripts\activate# Environment Variables
+# Virtual Environment
+.venv/
+
+# Environment Variables
 .env
 
 # Python
 __pycache__/
 *.py[cod]
 *.class
-requirement/
 
 # Frontend
 node_modules/
 dist/
 .eslintcache
-.env
-__pycache__/
