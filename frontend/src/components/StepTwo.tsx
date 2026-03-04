@@ -19,11 +19,11 @@ export default function StepTwo({ companyId, onComplete, onBack }: StepTwoProps)
     apiService.getCompany(companyId)
       .then((company: CompanyResponse) => {
         // Create an array of empty shareholder objects based on the count from Step 1
-        const initialForms = Array(company.shareholder_count).fill({
-          first_name: '',
-          last_name: '',
-          nationality: ''
-        });
+        const initialForms = Array.from({ length: company.shareholder_count }, () => ({
+  first_name: '',
+  last_name: '',
+  nationality: ''
+}));
         setShareholders(initialForms);
       })
       .catch(() => setError('Failed to load company details.'))

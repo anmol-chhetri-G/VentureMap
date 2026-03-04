@@ -1,3 +1,9 @@
+@import "tailwindcss";
+
+body {
+  @apply bg-gray-50 text-gray-900;
+}
+
 /* :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -66,9 +72,3 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 } */
-
-@import "tailwindcss";
-
-body {
-  @apply bg-gray-50 text-gray-900;
-}

@@ -73,7 +73,7 @@ export default function StepOne({ companyId, onNext }: StepOneProps) {
         />
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+   <div className="grid grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-semibold text-gray-700 mb-1">Number of Shareholders</label>
           <input 
@@ -81,8 +81,10 @@ export default function StepOne({ companyId, onNext }: StepOneProps) {
             min="1"
             required
             className="w-full rounded-md border border-gray-300 p-2.5 focus:ring-2 focus:ring-blue-500 outline-none transition"
-            value={formData.shareholder_count}
-            onChange={(e) => setFormData({...formData, shareholder_count: parseInt(e.target.value) || 1})}
+            // If it's 0, show an empty string so the box clears properly
+            value={formData.shareholder_count === 0 ? '' : formData.shareholder_count}
+            // Fall back to 0 if they backspace the whole number
+            onChange={(e) => setFormData({...formData, shareholder_count: parseInt(e.target.value) || 0})}
           />
         </div>
 
@@ -94,7 +96,9 @@ export default function StepOne({ companyId, onNext }: StepOneProps) {
             step="0.01"
             required
             className="w-full rounded-md border border-gray-300 p-2.5 focus:ring-2 focus:ring-blue-500 outline-none transition"
-            value={formData.total_capital}
+            // If it's 0, show an empty string
+            value={formData.total_capital === 0 ? '' : formData.total_capital}
+            // Fall back to 0 if they backspace the whole number
             onChange={(e) => setFormData({...formData, total_capital: parseFloat(e.target.value) || 0})}
           />
         </div>

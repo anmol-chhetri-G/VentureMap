@@ -2,9 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import StepOne from '../components/StepOne';
 import StepTwo from '../components/StepTwo';
-// We will build StepTwo next!
-// import StepTwo from '../components/StepTwo'; 
-
+import ProgressBar from '../components/ProgressBar';
 export default function IncorporationForm() {
   const [step, setStep] = useState<number>(1);
   const [companyId, setCompanyId] = useState<number | null>(null);
@@ -26,13 +24,13 @@ export default function IncorporationForm() {
 
   return (
     <div className="bg-white p-8 rounded-lg shadow-md border border-gray-100">
-      <div className="mb-8 border-b pb-4 flex justify-between items-center">
+      
+      {/* here is the progress bar */}
+      <div className="mb-8 border-b pb-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <h2 className="text-2xl font-bold text-gray-800">Company Incorporation</h2>
-        <span className="text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
-          Step {step} of 2
-        </span>
+        <ProgressBar currentStep={step} />
       </div>
-
+      {/* here is the form content */}
       {step === 1 && (
         <StepOne 
           companyId={companyId} 
