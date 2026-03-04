@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  # 1. The PostgreSQL Database
+  db:
+    image: postgres:15-alpine
+    container_name: venturemap_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: supersecretpassword
+      POSTGRES_DB: venturemap
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # 2. The FastAPI Backend
+  backend:
+    build: ./backend
+    container_name: venturemap_backend
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      # We replace 'localhost' with 'db' because Docker creates a network where containers talk via service names!
+      - DATABASE_URL=postgresql://postgres:supersecretpassword@db:5432/venturemap
+    depends_on:
+      - db
+
+  # 3. The React Frontend
+  frontend:
+    build: ./frontend
+    container_name: venturemap_frontend
+    restart: always
+    ports:
+      - "5173:80" # Maps your host's port 5173 to Nginx's port 80 inside the container
+    depends_on:
+      - backend
+
+volumes:
+  # This ensures your database data isn't wiped out if the container stops
+  postgres_data:
