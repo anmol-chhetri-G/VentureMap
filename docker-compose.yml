@@ -14,6 +14,10 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      retries: 5
 
   # 2. The FastAPI Backend
   backend:
@@ -26,7 +30,8 @@ services:
       # We replace 'localhost' with 'db' because Docker creates a network where containers talk via service names!
       - DATABASE_URL=postgresql://postgres:supersecretpassword@db:5432/venturemap
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
   # 3. The React Frontend
   frontend:
