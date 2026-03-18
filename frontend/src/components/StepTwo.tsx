@@ -42,7 +42,7 @@ export default function StepTwo({ companyId, onComplete, onBack }: StepTwoProps)
     setError('');
 
     try {
-      // Send all shareholders to the backend [cite: 37]
+      // Send all shareholders to the backend 
       await apiService.addShareholders(companyId, shareholders);
       onComplete(); // <-- This triggers your handleComplete function!
     } catch (err) {
